@@ -11,9 +11,12 @@
 			<h1 class="title">
 				MRT LOCATIONS
 			</h1>
-			<input type="text" id="search-box" placeholder="Station location">
+			<form data-bind="submit: filter">
+				<input type="text" id="search-box" placeholder="Station Location" data-bind="textInput: searchStation">
+				<button type="submit" class="filter">Filter</button>
+			</form>
 			<ul data-bind="foreach: stationsList">
-				<li data-bind="text: title, click: $parent.setCurrentStation"></li>
+				<li data-bind="text: title, click: $parent.setCurrentStation, visible: visible"></li>
 			</ul>
 		</div>
 
@@ -22,8 +25,7 @@
 
 
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsQ2bS67nRgVPPE_q8DiHQgg8esLd3S4E&callback=initMap"
-    async defer></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsQ2bS67nRgVPPE_q8DiHQgg8esLd3S4E&callback=initMap"></script>
 	<script type='text/javascript' src='js/knockout-3.4.2.js'></script>
     <script src="js/app.js"></script>
 	</body>

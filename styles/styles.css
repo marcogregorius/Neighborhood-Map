@@ -5,6 +5,22 @@ html, body{
 	font-family: 'Open Sans', sans-serif;
 }
 
+ul {
+	list-style-type: none;
+	padding: 5px;
+	margin: 0px;
+}
+
+li {
+	padding: 5px;
+	padding-bottom: 20px;
+}
+
+li:hover { 
+    background-color: #929292;
+    cursor: pointer;
+}
+
 .sidebar {
 	width: 20%;
 	height: 100%;
@@ -19,10 +35,21 @@ html, body{
 	margin: 20px 10px 30px 10px;
 }
 
+.filter {
+	height: 32px;
+	width: 25%;
+	margin: 0px;
+	padding: 0px;
+	cursor: pointer;
+}
+
 #search-box {
 	width: 70%;
 	height: 30px;
 	font-size: 18px;
+	margin: 0px;
+	padding: 0px;
+	border-width: 1px;
 }
 
 #map {

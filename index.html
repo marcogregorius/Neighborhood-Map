@@ -12,6 +12,9 @@
 				MRT LOCATIONS
 			</h1>
 			<input type="text" id="search-box" placeholder="Station location">
+			<ul data-bind="foreach: stationsList">
+				<li data-bind="text: title, click: $parent.setCurrentStation"></li>
+			</ul>
 		</div>
 
 		<div id="map"></div>

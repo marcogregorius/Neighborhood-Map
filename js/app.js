@@ -27,7 +27,24 @@ var stations = [
 	// {title: 'Jurong East MRT', location: {}},
 ];
 
+var Station = function(data) {
+	this.title = ko.observable(data.title);
+	this.location = ko.observable(data.location);
+}
+
 var viewModel = function() {
+	var self = this;
+	this.stationsList = ko.observableArray([]);
+	this.currentStation = ko.observable();
+
+	// Pushing each station as a Station object inside Observable Array stationsList.
+	stations.forEach(function(stationItem) {
+		self.stationsList.push(new Station(stationItem));
+	});
+
+	this.setCurrentStation = function(selectedStation) {
+		self.currentStation(selectedStation);
+	}
 
 };
 
@@ -52,7 +69,28 @@ function initMap() {
 		});
 		markers.push(marker);
 		markers[i].setMap(map);
+
+		var infowindow = new google.maps.InfoWindow({
+			content: station
+		});
+
+		marker.addListener('click', function() {
+			populateInfoWindow(this, infowindow);
+		})
 	}
+
+function populateInfoWindow(marker, infowindow) {
+	// Check to make sure the infowindow is not already opened on this marker.
+	if (infowindow.marker != marker) {
+		infowindow.marker = marker;
+		infowindow.setContent(marker.title);
+		infowindow.open(map, marker);
+		//Make sure the marker property is cleared if the infowindow is closed.
+		infowindow.addListener('closeclick', function() {
+			infowindow.setMarker = null;
+		});
+	}
+}
 
 	// Function to geocode by station name and store the lat lng in the stations array.
 	// function geocodeStation (geocoder, station) {
@@ -71,10 +109,6 @@ function initMap() {
 	// 		}
 	// 	});
 	// }
-
-	for (var i = 0; i < stations.length; i++) {
-
-	}
 }
 
 ko.applyBindings (new viewModel());

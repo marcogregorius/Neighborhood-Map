@@ -30,6 +30,7 @@ function initMap() {
 			stations.forEach(function(station) {
 				station.infowindow.close();
 			})
+
 			populateInfoWindow(this, infowindow);
 		});
 		marker.addListener('click', function() {
@@ -39,27 +40,57 @@ function initMap() {
 			bounceMarker(this);
 		})
 	}
-
-
-	function populateInfoWindow(marker, infowindow) {
-		// Check to make sure the infowindow is not already opened on this marker.
-		if (infowindow.marker != marker) {
-			infowindow.marker = marker;
-			infowindow.setContent(marker.title);
-			//Make sure the marker property is cleared if the infowindow is closed.
-			infowindow.addListener('closeclick', function() {
-				infowindow.setMarker = null;
-			});
-		}
-		infowindow.open(map, marker);
-	}
-
-	function bounceMarker(marker) {
-		marker.setAnimation(google.maps.Animation.BOUNCE);
-	}
 	ko.applyBindings (new viewModel());
 }
 
+
+function populateInfoWindow(marker, infowindow) {
+	// Check to make sure the infowindow is not already opened on this marker.
+	if (infowindow.marker != marker) {
+		infowindow.marker = marker;
+
+		infowindow.setContent();
+
+		function wikiLoad(stationStr) {
+		    var wikiUrl = "https://en.wikipedia.org/w/api.php?action=opensearch&search=" + stationStr + "&limit=1&format=json&namespace=0&callback=?";
+
+		    var wikiRequestTimeout = setTimeout(function(){
+		    	infowindow.setContent("Failed to get wikipedia resources on " + stationStr)
+		    }, 8000);
+
+		    $.ajax({
+		        url: wikiUrl,
+		        dataType: "json",
+		        success: function(data){
+		        	var result = {
+		        		title : data[1][0],
+		        		snippet : data[2][0],
+		        		web_url : data[3][0]
+		        	};
+
+					infowindow.setContent("<h2><a href='" + result.web_url + "' class='infowindow'>" + marker.title + "</a></h2><div class='snippet'>"
+											+ result.snippet + "</div>");
+
+		            clearTimeout(wikiRequestTimeout);
+		        }
+		    });
+		}
+
+		wikiLoad(marker.title);
+
+		//Make sure the marker property is cleared if the infowindow is closed.
+		infowindow.addListener('closeclick', function() {
+			infowindow.setMarker = null;
+			marker.setAnimation(null);
+		});
+	}
+	infowindow.open(map, marker);
+}
+
+
+function bounceMarker(marker) {
+	marker.setAnimation(google.maps.Animation.BOUNCE);
+}
 
 
 var stations = [
@@ -75,20 +106,6 @@ var stations = [
 	{title: 'Toa Payoh MRT', location: {lat: 1.3326911, lng: 103.84707849999995}, visible: true},
 	{title: 'Braddell MRT', location: {lat: 1.3404334, lng: 103.84680129999992}, visible: true},
 	{title: 'Bishan MRT', location: {lat: 1.3513087, lng: 103.84915439999997}, visible: true}
-	// {title: 'Ang Mo Kio MRT', location: {}},
-	// {title: 'Yio Chu Kang MRT', location: {}},
-	// {title: 'Khatib MRT', location: {}},
-	// {title: 'Yishun MRT', location: {}},
-	// {title: 'Sembawang MRT', location: {}},
-	// {title: 'Admiralty MRT', location: {}},
-	// {title: 'Woodlands MRT', location: {}},
-	// {title: 'Marsiling MRT', location: {}},
-	// {title: 'Kranji MRT', location: {}},
-	// {title: 'Yew Tee MRT', location: {}},
-	// {title: 'Choa Chu Kang MRT', location: {}},
-	// {title: 'Bukit Gombak MRT', location: {}},
-	// {title: 'Bukit Batok MRT', location: {}},
-	// {title: 'Jurong East MRT', location: {}},
 ];
 
 var Station = function(data) {
@@ -103,39 +120,30 @@ var viewModel = function() {
 	var self = this;
 	this.stationsList = ko.observableArray([]);
 
-
 	// Pushing each station as a Station object inside Observable Array stationsList.
 	stations.forEach(function(stationItem) {
 		self.stationsList.push(new Station(stationItem));
 	});
 
-	this.currentStation = ko.observable()
+	this.currentStation = ko.observable();
 	this.setCurrentStation = function(selectedStation) {
 		self.currentStation(selectedStation);
 		self.stationsList().forEach(function(station) {
 			station.infowindow().close();
+			station.marker().setAnimation(null);
 		})
-		populateInfoWindowFromList(self.currentStation().marker(), self.currentStation().infowindow());
+		populateInfoWindow(self.currentStation().marker(), self.currentStation().infowindow());
+		bounceMarker(self.currentStation().marker());
+	}
+
+	self.isActive = ko.observable(false);
+	self.toggleActive = function(data, event) {
+		self.isActive(!self.isActive());
 	}
 
 	this.searchStation = ko.observable();
-
 	this.filter = function() {
 		showFiltered(self.searchStation());
-		console.log(self.stationsList());
-	}
-
-	function populateInfoWindowFromList(marker, infowindow) {
-		// Check to make sure the infowindow is not already opened on this marker.
-		if (infowindow.marker != marker) {
-			infowindow.marker = marker;
-			infowindow.setContent(marker.title);
-			//Make sure the marker property is cleared if the infowindow is closed.
-			infowindow.addListener('closeclick', function() {
-				infowindow.setMarker = null;
-			});
-		}
-		infowindow.open(map, marker);
 	}
 
 	function showFiltered(text) {
@@ -147,10 +155,16 @@ var viewModel = function() {
 				station.visible(false);
 				station.marker().setMap(null);
 			}
+			station.infowindow().close();
 		})
 	}
 
+
 };
+
+// Yelp Client ID vslfdAH0hGr7fdYhTL1O0g
+// Yelp's API Key ZatjQF3FkjBZ-Qp5dQ809p5-1ESSl1ruNJTVMwdX3rge3Xyx_cMxBCcv60E0M8sPKAAnevgNdRM2WeVwFk4bPTn5dAZBf0VBvhStApwiNx1ccTbY_xA0GXw1VLfmWnYx
+
 
 
 	// Function to geocode by station name and store the lat lng in the stations array.

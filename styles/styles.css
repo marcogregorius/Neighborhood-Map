@@ -13,7 +13,9 @@ ul {
 
 li {
 	padding: 5px;
-	padding-bottom: 20px;
+	padding-bottom: 12px;
+	padding-top: 12px;
+	font-size: 18px;
 }
 
 li:hover { 
@@ -43,13 +45,24 @@ li:hover {
 	cursor: pointer;
 }
 
+.selected_station {
+	background-color: #929292;
+}
+
+.infowindow {
+	font-size: 24px;
+}
+
 #search-box {
-	width: 70%;
-	height: 30px;
+	width: 60%;
+	height: 32px;
 	font-size: 18px;
-	margin: 0px;
+	margin: 0px 0px 0px 5px;
 	padding: 0px;
+	border: 1px;
 	border-width: 1px;
+	color: black;
+	vertical-align: middle;
 }
 
 #map {

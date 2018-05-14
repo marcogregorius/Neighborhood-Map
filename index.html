@@ -4,26 +4,38 @@
 		<meta charset="utf-8">
 		<title>Neighbourhood Map</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<link rel="stylesheet" href="styles/styles.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans" >
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	</head>
 
 	<body>
-		<div class="sidebar">
-			<h1 class="title">
-				MRT LOCATIONS
-			</h1>
-			<form data-bind="submit: filter">
-				<input type="text" id="search-box" placeholder="Station Location" data-bind="textInput: searchStation">
-				<button type="submit" class="btn btn-info btn-md">
-					<span class="glyphicon glyphicon-filter"></span>Filter</button>
-			</form>
-			<ul data-bind="foreach: stationsList">
-				<li data-bind="text: title, click: $parent.setCurrentStation, visible: visible"></li>
-			</ul>
-		</div>
-		<div id="map"></div>
+		<div class="container-fluid">
+			<div class="row" id="row-main">
+				<div class="col-md-3" id="sidebar">
+								<div class="sidebar-header">
+								MRT LOCATIONS
+								</div>
+								<form data-bind="submit: filterOnEnter">
+									<input type="search" id="search-box" placeholder="Station Location" data-bind="textInput: searchStationOnEnter, value: query, valueUpdate: 'keyup'" autocomplete="off">
+									<button type="submit" class="btn btn-info btn-md">
+									<span class="glyphicon glyphicon-filter"></span>Filter</button>
+								</form>
+								<ul data-bind="foreach: filterStations">
+									<li class="active" data-bind="text: title, click: $parent.setCurrentStation, visible: visible"></li>
+								</ul>
+				</div>
+				<div class="col-md-9" id="content">
+					<div class="row" id="row-hamburger">
+				        <a href="#" class="toggle-sidebar">
+				          <span class="glyphicon glyphicon-menu-hamburger"></span>
+				        </a>
+				    </div>
+						<div id="map"></div>
+				</div>
+			</div>
+		</div>	
 		<script type='text/javascript' src='js/libs/knockout-3.4.2.js'></script>
     	<script src="js/libs/jquery.min.js"></script>
     	<script src="js/app.js"></script>

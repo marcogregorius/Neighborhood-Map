@@ -23,18 +23,77 @@ li:hover {
     cursor: pointer;
 }
 
-.sidebar {
-	width: 20%;
+.container-fluid {
+	padding: 0px;
 	height: 100%;
-	background-color: #252525;
-	color: #D6D8DE;
-	position: absolute;
-	z-index: 5;
+	width: 100%;
+	display: table;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-.title {
+.collapsed {
+	display:none;
+}
+
+@media (min-width: 992px) {
+	.collapsed {
+		display: block;
+		margin-left: -25%;
+	}
+}
+
+#row-main {
+	overflow-x: hidden;
+}
+
+#row-hamburger {
+	height: 58px;
+	margin: 0px;
+	background-color: #343434;
+}
+
+#content {
+    -webkit-transition: width 0.3s ease;
+    -moz-transition: width 0.3s ease;
+    -o-transition: width 0.3s ease;
+    transition: width 0.3s ease;
+}
+
+#sidebar {
+	background-color: #252525;
+	color: #D6D8DE;
+    -webkit-transition: margin 0.3s ease;
+    -moz-transition: margin 0.3s ease;
+    -o-transition: margin 0.3s ease;
+    transition: margin 0.3s ease;
+}
+
+.btn {
+	height: 38px;
+	margin: 0px 0px 0px 5px;
+}
+
+.row {
+	height: 100%;
+}
+
+.col-md-3 {
+	height: 100%;
+	min-height: 100%;
+}
+
+.col-md-9 {
+	padding: 0px;
+/*	padding: 0px 10px 0px 0px;
+*/}
+
+.sidebar-header {
 	text-align: center;
-	margin: 20px 10px 30px 10px;
+	padding: 30px;
+	font-size: 36px;
+	/*margin: 20px 10px 30px 10px;*/
+	/*font-size: 3vw;*/
 }
 
 .filter {
@@ -53,16 +112,23 @@ li:hover {
 	font-size: 24px;
 }
 
-#search-box {
-	width: 60%;
-	height: 32px;
+.glyphicon-menu-hamburger {
 	font-size: 18px;
-	margin: 0px 0px 0px 5px;
+	padding: 20px 20px;
+}
+
+
+#search-box {
+	width: 75%;
+	height: 38px;
+	font-size: 18px;
+	margin: 0px 0px 0px 15px;
 	padding: 0px;
 	border: 1px;
 	border-width: 1px;
 	color: black;
 	vertical-align: middle;
+	border-radius: 5px;
 }
 
 #map {

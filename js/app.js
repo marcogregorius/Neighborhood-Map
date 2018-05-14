@@ -30,18 +30,20 @@ function initMap() {
 		marker.addListener('click', function() {
 			stations.forEach(function(station) {
 				station.infowindow.close();
+				station.marker.setAnimation(null);
 			})
-
 			populateInfoWindow(this, infowindow);
+			bounceMarker(this);
+			map.panTo(position);;
 		});
 
 		// Add click listener for bounce animation for each marker. Clicking a marker will nullify the animation of other markers.
-		marker.addListener('click', function() {
-			stations.forEach(function(station) {
-				station.marker.setAnimation(null)
-			})
-			bounceMarker(this);
-		})
+		// marker.addListener('click', function() {
+		// 	stations.forEach(function(station) {
+		// 		station.marker.setAnimation(null)
+		// 	})
+		// 	bounceMarker(this);
+		// })
 	}
 	ko.applyBindings (new viewModel());
 }

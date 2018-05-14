@@ -14,25 +14,25 @@
 		<div class="container-fluid">
 			<div class="row" id="row-main">
 				<div class="col-md-3" id="sidebar">
-								<div class="sidebar-header">
-								MRT LOCATIONS
-								</div>
-								<form data-bind="submit: filterOnEnter">
-									<input type="search" id="search-box" placeholder="Station Location" data-bind="textInput: searchStationOnEnter, value: query, valueUpdate: 'keyup'" autocomplete="off">
-									<button type="submit" class="btn btn-info btn-md">
-									<span class="glyphicon glyphicon-filter"></span>Filter</button>
-								</form>
-								<ul data-bind="foreach: filterStations">
-									<li class="active" data-bind="text: title, click: $parent.setCurrentStation, visible: visible"></li>
-								</ul>
+					<div class="sidebar-header">
+					MRT LOCATIONS
+					</div>
+					<form data-bind="submit: filterOnEnter">
+						<input type="search" id="search-box" placeholder="Station Location" data-bind="textInput: searchStationOnEnter, value: query, valueUpdate: 'keyup'" autocomplete="off">
+						<button type="submit" class="btn btn-info btn-md">
+						<span class="glyphicon glyphicon-filter"></span>Filter</button>
+					</form>
+					<ul data-bind="foreach: filterStations">
+						<li class="active" data-bind="text: title, click: $parent.setCurrentStation, visible: visible"></li>
+					</ul>
 				</div>
 				<div class="col-md-9" id="content">
-					<div class="row" id="row-hamburger">
-				        <a href="#" class="toggle-sidebar">
-				          <span class="glyphicon glyphicon-menu-hamburger"></span>
-				        </a>
-				    </div>
-						<div id="map"></div>
+					<div id="row-hamburger">
+			        	<a href="#" class="toggle-sidebar">
+			          	<span class="glyphicon glyphicon-menu-hamburger"></span>
+			        	</a>
+			        </div>
+					<div id="map"></div>
 				</div>
 			</div>
 		</div>	

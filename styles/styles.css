@@ -1,8 +1,11 @@
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
 html, body{
 	height: 100%;
 	margin: 0;
 	padding: 0;
-	font-family: 'Open Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    background: #fafafa;
 }
 
 ul {
@@ -27,9 +30,6 @@ li:hover {
 	padding: 0px;
 	height: 100%;
 	width: 100%;
-	display: table;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
 }
 
 .collapsed {
@@ -39,18 +39,22 @@ li:hover {
 @media (min-width: 992px) {
 	.collapsed {
 		display: block;
-		margin-left: -25%;
+		margin-left: -25%;	
 	}
 }
 
 #row-main {
 	overflow-x: hidden;
+	height: 100%;
 }
 
 #row-hamburger {
 	height: 58px;
 	margin: 0px;
 	background-color: #343434;
+	z-index: 2;
+	position: absolute;
+	width: 100%;
 }
 
 #content {
@@ -71,34 +75,29 @@ li:hover {
 
 .btn {
 	height: 38px;
-	margin: 0px 0px 0px 5px;
-}
-
-.row {
-	height: 100%;
+	margin: 2% 2% 0% 2%;
 }
 
 .col-md-3 {
 	height: 100%;
 	min-height: 100%;
+	padding-right: 0px;
 }
 
 .col-md-9 {
 	padding: 0px;
-/*	padding: 0px 10px 0px 0px;
-*/}
+	height: 100%;
+}
 
 .sidebar-header {
 	text-align: center;
 	padding: 30px;
 	font-size: 36px;
-	/*margin: 20px 10px 30px 10px;*/
-	/*font-size: 3vw;*/
 }
 
 .filter {
 	height: 32px;
-	width: 25%;
+	width: 21%;
 	margin: 0px;
 	padding: 0px;
 	cursor: pointer;
@@ -117,12 +116,11 @@ li:hover {
 	padding: 20px 20px;
 }
 
-
 #search-box {
-	width: 75%;
+	width: 68%;
 	height: 38px;
 	font-size: 18px;
-	margin: 0px 0px 0px 15px;
+	margin: 2% 0% 0% 2%;
 	padding: 0px;
 	border: 1px;
 	border-width: 1px;
@@ -133,4 +131,5 @@ li:hover {
 
 #map {
 	height: 100%;
+	z-index: 0;
 }

@@ -56,7 +56,9 @@ function populateInfoWindow(marker, infowindow) {
 
 		function wikiLoad(stationStr) {
 			// AJAX request to load Wikipedia API for station's detail and URL to Wikipedia page.
-		    var wikiUrl = "https://en.wikipedia.org/w/api.php?action=opensearch&search=" + stationStr + "&limit=1&format=json&namespace=0&callback=?";
+		    var wikiUrl = "https://en.wikipedia.org/w/api.php?action=opensearch&search="
+						  + stationStr
+						  + "&limit=1&format=json&namespace=0&callback=?";
 
 		    var wikiRequestTimeout = setTimeout(function(){
 		    	infowindow.setContent("Failed to get wikipedia resources on " + stationStr)
@@ -71,13 +73,13 @@ function populateInfoWindow(marker, infowindow) {
 		        		snippet : data[2][0],
 		        		web_url : data[3][0]
 		        	};
-					infowindow.setContent("<a href='" + result.web_url + "' class='infowindow'>" + marker.title + "</a><div class='snippet'>"
-											+ result.snippet + "</div>");
+					infowindow.setContent("<a href='" + result.web_url + "' class='infowindow' target='_blank'>"
+										  + marker.title + "</a><p><div class='snippet'>"
+										  + result.snippet + "</div></p>");
 		            clearTimeout(wikiRequestTimeout);
 		        }
 		    });
 		}
-
 		wikiLoad(marker.title);
 
 		//Make sure the marker property is cleared if the infowindow is closed.
@@ -97,11 +99,11 @@ function bounceMarker(marker) {
 var stations = [
 	// {title: 'Marina South Pier MRT', location: {}},
 	// {title: 'Marina Bay MRT', location: {}},
-	// {title: 'Raffles Place MRT', location: {}},
-	// {title: 'City Hall MRT', location: {}},
-	// {title: 'Dhoby Ghaut MRT', location: {}},
-	// {title: 'Somerset MRT', location: {}},
-	// {title: 'Orchard MRT', location: {}},
+	{title: 'Raffles Place MRT', location: {lat: 1.2830173, lng: 103.8513365}, visible: true},
+	{title: 'City Hall MRT', location: {lat: 1.2930893, lng: 103.8519267}, visible: true},
+	{title: 'Dhoby Ghaut MRT', location: {lat: 1.2993651, lng: 103.8454843}, visible: true},
+	{title: 'Somerset MRT', location: {lat: 1.3005915, lng: 103.838529}, visible: true},
+	{title: 'Orchard MRT', location: {lat: 1.3045879, lng: 103.8319307}, visible: true},
 	{title: 'Newton MRT', location: {lat: 1.3136071, lng: 103.83781099999999}, visible: true},
 	{title: 'Novena MRT', location: {lat: 1.3204301, lng: 103.84381810000002}, visible: true},
 	{title: 'Toa Payoh MRT', location: {lat: 1.3326911, lng: 103.84707849999995}, visible: true},

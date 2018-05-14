@@ -75,7 +75,9 @@ function populateInfoWindow(marker, infowindow) {
 		        	};
 					infowindow.setContent("<a href='" + result.web_url + "' class='infowindow' target='_blank'>"
 										  + marker.title + "</a><p><div class='snippet'>"
-										  + result.snippet + "</div></p>");
+										  + result.snippet + "</div></p>"
+										  + "<p><i>Source: <a href=https://www.mediawiki.org/wiki/API:Main_page>"
+										  + "Wikipedia API</a></i></p>");
 		            clearTimeout(wikiRequestTimeout);
 		        }
 		    });

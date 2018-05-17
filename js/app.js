@@ -161,24 +161,44 @@ var viewModel = function() {
 		});
 	});
 
-	// Search function when user presses enter. 
+
 	self.searchStationOnEnter = ko.observable();
+
+	// Subscribe searchStationOnEnter to showFiltered function to filter the markers on key up event.
+	self.searchStationOnEnter.subscribe(function(text){
+		showFiltered(text);
+	})
+
 	self.filterOnEnter = function() {
 		showFiltered(self.searchStationOnEnter());
-	};
+	}
 
 	function showFiltered(text) {
-		self.stationsList().forEach(function(station) {
-			if (!text || station.title().toLowerCase().includes(text.toLowerCase())) {
-				station.visible(true);
-				station.marker().setMap(map);
-			} else {
-				station.visible(false);
-				station.marker().setMap(null);
-			}
-			station.infowindow().close();
-		});
-	}
+	self.stationsList().forEach(function(station) {
+		if (!text || station.title().toLowerCase().includes(text.toLowerCase())) {
+			station.visible(true);
+			station.marker().setMap(map);
+		} else {
+			station.visible(false);
+			station.marker().setMap(null);
+		}
+		station.infowindow().close();
+	});
+}
+
+
+	// function showFiltered(text) {
+	// 	self.stationsList().forEach(function(station) {
+	// 		if (!text || station.title().toLowerCase().includes(text.toLowerCase())) {
+	// 			station.visible(true);
+	// 			station.marker().setMap(map);
+	// 		} else {
+	// 			station.visible(false);
+	// 			station.marker().setMap(null);
+	// 		}
+	// 		station.infowindow().close();
+	// 	});
+	// }
 };
 
 // Event listener for hamburger menu to toggle sidebar

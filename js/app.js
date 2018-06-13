@@ -1,8 +1,8 @@
-// Loading Google Maps with initMap() function centered at Bishan, Singapore.
+// Loading Google Maps with initMap() function centered at Newton, Singapore.
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
 	  zoom: 13,
-	  center: {lat: 1.3553851, lng: 103.8477347}
+	  center: {lat: 1.3136071, lng: 103.83781099999999}
 	});
 	var markers = [];
 

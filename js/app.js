@@ -175,7 +175,7 @@ var viewModel = function() {
 
 	function showFiltered(text) {
 	self.stationsList().forEach(function(station) {
-		if (!text || station.title().toLowerCase().includes(text.toLowerCase())) {
+		if (!text || station.title().toLowerCase().startsWith(text.toLowerCase())) {
 			station.visible(true);
 			station.marker().setMap(map);
 		} else {

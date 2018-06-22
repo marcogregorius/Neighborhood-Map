@@ -1,4 +1,4 @@
-# [Neighborhood Map] (http://marcogregorius.github.io/Neighborhood_Map)
+# [Neighborhood Map](http://marcogregorius.github.io/Neighborhood_Map)
 *Front End Web Application with the awesome Knockout JS framework, incredible Google Maps API and comprehensive Wikipedia API*
 - This responsive Web App takes in a list of MRT (Mass Rapid Transit) stations in Singapore and displays them in markers on the Google Maps.
 - When clicking the markers, AJAX request is fired to load details of the station from Wikipedia API.
